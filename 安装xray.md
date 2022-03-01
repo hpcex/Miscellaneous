@@ -24,8 +24,8 @@
 
 把 config.json 放到 /etc/xray/
 
-systemctl enable xray  
-systemctl start xray  
+	systemctl enable xray  
+	systemctl start xray  
 
 完成
 
