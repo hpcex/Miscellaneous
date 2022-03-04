@@ -3,7 +3,7 @@
 	tproxy-port: 7893  
 	mixed-port: 7890  
 
-## 新建一个名为 clash 的用户，uid为 23333，并加入 root 组。
+## 新建一个名为 clash 的用户，gid为 23333，并加入 root 组。
 
 	grep -qw clash /etc/passwd || echo "clash:x:0:23333:::" >> /etc/passwd  
 	gpasswd -a clash root
