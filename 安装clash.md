@@ -51,6 +51,8 @@ Wants=network.target
 
 [Service]  
 Type=simple  
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE  
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE  
 PIDFile=/var/run/clash.pid  
 ExecStart=/opt/clash/clash -d /opt/clash  
 Restart=always  
@@ -73,3 +75,5 @@ systemctl stop clash
 ## 看日志
 cd /var/log  
 tail -f syslog  
+或
+journalctl --no-pager | grep 'clash'
