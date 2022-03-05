@@ -12,7 +12,7 @@ eval "`dircolors`"
 alias ls='ls $LS_OPTIONS -CF'
 alias ll='ls $LS_OPTIONS -lF'
 alias la='ls $LS_OPTIONS -lAF'
-alisa m='/usr/bin/micro'
+alias m='/usr/bin/micro'
 #
 # Some more alias to avoid making mistakes:
 # alias rm='rm -i'
