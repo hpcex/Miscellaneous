@@ -16,9 +16,12 @@
 	Wants=network.target  
 
 	[Service]  
-	Type=simple  
+	Type=simple
+	User=clash
+	CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+	AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 	PIDFile=/var/run/clash.pid  
-	ExecStart=sudo -u clash /usr/bin/clash -d /root/.config/clash  
+	ExecStart=/usr/bin/clash -d /root/.config/clash  
 	Restart=always  
 	RestartSec=2  
 
