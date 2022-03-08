@@ -1,3 +1,6 @@
+"config file for gVim on windows"
+"2022-03-08 20:25"
+
 "set background=dark         " 要在syntax on以前设定好背景色彩, 有colorscheme理应不用设定, 但反正我就是喜欢黑底的scheme没差
 "set mouse=a                 " 滑鼠控制模式
 "set ru                      " 显示右下角状态列说明, 第几行第几个字, 设定statusline时, 无用
