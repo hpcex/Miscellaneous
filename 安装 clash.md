@@ -54,7 +54,7 @@ Wants=network.target
 
 [Service]  
 Type=simple  
-User=clash // 可选
+User=clash //可选  
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE  
 AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE  
 PIDFile=/var/run/clash.pid  
