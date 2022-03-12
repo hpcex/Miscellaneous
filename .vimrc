@@ -67,7 +67,7 @@ set guifontwide="microsoft yahei ui":h20:cGB2312
 set hlsearch
 nnoremap <F3> :noh<CR>
 
-
+"need plugin guifont++
 let guifontpp_size_increment=1
 let guifontpp_smaller_font_map="<M-Down>"
 let guifontpp_larger_font_map="<M-Up>"
