@@ -62,8 +62,8 @@ filetype on
 set tabstop=4
 set guioptions -=T
 set wrap linebreak nolist
-set guifont=Input:h20:cANSI
-set guifontwide="microsoft yahei ui":h20:cGB2312
+set guifont=Input:h12:cANSI
+set guifontwide="microsoft yahei ui":h12:cGB2312
 set hlsearch
 nnoremap <F3> :noh<CR>
 
