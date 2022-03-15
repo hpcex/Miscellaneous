@@ -12,7 +12,7 @@ dns-nameservers 192.168.1.240
 
 ## 开启转发
 sysctl -w net.ipv4.ip_forward=1  
-验证一下，回显是 1 说明转发开启成功：  
+验证一下，回显是 1 则说明转发开启成功：  
 cat /proc/sys/net/ipv4/ip_forward  
 
 ## 下载最新版 clash  
@@ -28,9 +28,7 @@ chmod +x /opt/clash/clash
 
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -d 192.168.1.242/32 -j ACCEPT  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp -j REDIRECT --to-ports 7892  
-
 或
-
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -d 192.168.1.242/32 -j ACCEPT  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 443 -j REDIRECT --to-ports 7892  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 80 -j REDIRECT --to-ports 7892  
