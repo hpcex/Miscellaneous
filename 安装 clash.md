@@ -28,7 +28,7 @@ chmod +x /opt/clash/clash
 
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -d 192.168.1.242/32 -j ACCEPT  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp -j REDIRECT --to-ports 7892  
-或
+或  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -d 192.168.1.242/32 -j ACCEPT  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 443 -j REDIRECT --to-ports 7892  
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --dport 80 -j REDIRECT --to-ports 7892  
