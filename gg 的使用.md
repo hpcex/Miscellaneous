@@ -5,7 +5,7 @@ curl -Ls https://hubmirror.v2raya.org/raw/mzz2017/gg/main/release/go.sh | sudo s
 gg --version
 
 ## 添加节点  
-gg config -w node=vmess://MY_VMESS_SERVER_SHARE_LINK  
+gg config -w node=vmess://MY-SERVER-LINK  
 gg config -w node=socks5://127.0.0.1:7891  
 下次再添加节点时会覆盖现有的配置。
 
