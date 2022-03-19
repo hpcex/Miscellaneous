@@ -27,5 +27,5 @@
 	systemctl enable xray  
 	systemctl start xray  
 
-EOF
+`EOF`
 
