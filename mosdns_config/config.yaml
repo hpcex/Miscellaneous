@@ -1,0 +1,90 @@
+log:
+    level: info
+    file: ./work.log
+
+plugin:
+- tag: main_server
+  type: server
+  args:
+    entry:
+      - mem_cache
+      - hosts
+      - _no_ecs
+      - _single_flight
+      - main_sequence
+    server:
+      - protocol: udp
+        addr: ':53'
+
+- tag: main_sequence
+  type: sequence
+  args:
+    exec:
+      - if:
+          - domain_cn
+        exec:
+          - china
+          - _end
+      - primary:
+        - cloudflare
+        secondary:
+        - google
+
+- tag: hosts
+  type: hosts
+  args:
+    hosts:
+      - 'ext:./hosts.txt'
+
+- tag: mem_cache
+  type: cache
+  args:
+    size: 4096
+    lazy_cache_ttl: 86400
+    lazy_cache_reply_ttl: 30
+
+- tag: domain_cn
+  type: query_matcher
+  args:
+    domain:
+      - 'ext:/opt/mosdns/ali.txt'
+      - 'ext:/opt/mosdns/china.txt'
+      - 'ext:/opt/mosdns/bigchina.txt'
+
+- tag: google
+  type: fast_forward
+  args:
+    upstream:
+      - addr: tls://8.8.8.8
+        socks5: '127.0.0.1:7891'
+
+- tag: cloudflare
+  type: fast_forward
+  args:
+    upstream:
+      - addr: tls://1.1.1.1
+        socks5: '127.0.0.1:7891'
+      - addr: tls://1.0.0.1
+        socks5: '127.0.0.1:7891'
+
+- tag: china
+  type: fast_forward
+  args:
+    upstream:
+      - addr: 221.228.255.1
+      - addr: 'https://doh.pub/dns-query'
+        dial_addr: '120.53.53.53:443'
+        trusted: true
+        enable_pipeline: true
+        enable_http3: false
+        idle_timeout: 30
+        max_conns: 1
+        insecure_skip_verify: false
+      - addr: 'https://i.233py.com/dns-query'
+        dial_addr: '111.229.68.53:443'
+        trusted: true
+        enable_pipeline: true
+        enable_http3: false
+        idle_timeout: 30
+        max_conns: 1
+        insecure_skip_verify: false
