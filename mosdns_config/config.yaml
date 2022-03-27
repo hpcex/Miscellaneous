@@ -47,9 +47,9 @@ plugin:
   type: query_matcher
   args:
     domain:
-      - 'ext:/opt/mosdns/ali.txt'
-      - 'ext:/opt/mosdns/china.txt'
-      - 'ext:/opt/mosdns/bigchina.txt'
+      - 'ext:./ali.txt'
+      - 'ext:./china.txt'
+      - 'ext:./bigchina.txt'
 
 - tag: google
   type: fast_forward
