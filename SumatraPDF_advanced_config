@@ -1,11 +1,11 @@
 # For documentation, see https://www.sumatrapdfreader.org/settings/settings3-3-1.html
 
 MainWindowBackground = #eaeaef
-EscToExit = false
+EscToExit = true
 ReuseInstance = false
 UseSysColors = false
 RestoreSession = true
-TabWidth = 300
+TabWidth = 250
 
 FixedPageUI [
 	TextColor = #000000
@@ -63,9 +63,9 @@ EnableTeXEnhancements = false
 DefaultDisplayMode = automatic
 DefaultZoom = fit page
 WindowState = 2
-WindowPos = 515 0 890 1153
+WindowPos = 645 107 890 981
 ShowToc = true
-SidebarDx = 302
+SidebarDx = 188
 TocDy = 0
 TreeFontSize = 0
 ShowStartPage = true
@@ -73,68 +73,7 @@ UseTabs = true
 
 FileStates [
 	[
-		FilePath = D:\Library\中医\!优先\医学心悟 - 程国彭.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 1
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 -1
-		PageNo = 1
-		Zoom = fit page
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = true
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-	]
-	[
-		FilePath = D:\Library\中医\!优先\罗太无口授三法.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 1
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 14.9358
-		PageNo = 53
-		Zoom = fit width
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = false
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-	]
-	[
-		FilePath = D:\Library\中医\!优先\黄乐亭指要.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 12
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 182.128
-		PageNo = 139
-		Zoom = 200
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = true
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-		TocState = 1 6 20
-	]
-	[
-		FilePath = D:\Library\中医\!优先\张聿青医案.pdf
+		FilePath = \\192.168.2.247\hp\netbackup\library\中医\名医\!叶天士\临证指南医案译注  下.pdf
 		Favorites [
 		]
 		IsPinned = false
@@ -142,39 +81,19 @@ FileStates [
 		OpenCount = 7
 		UseDefaultState = false
 		DisplayMode = continuous
-		ScrollPos = -1 526.473
-		PageNo = 148
+		ScrollPos = -1 88.9816
+		PageNo = 380
 		Zoom = 150
 		Rotation = 0
 		WindowState = 2
-		WindowPos = 515 0 890 1153
+		WindowPos = 645 107 890 981
 		ShowToc = true
-		SidebarDx = 302
+		SidebarDx = 188
 		DisplayR2L = false
 		ReparseIdx = 0
 	]
 	[
-		FilePath = D:\Library\中医\!优先\圆运动的古中医学 续集.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 2
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 173.019
-		PageNo = 97
-		Zoom = 150
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = true
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-	]
-	[
-		FilePath = D:\Library\中医\!优先\吕祖医道还元.pdf
+		FilePath = \\192.168.2.247\hp\netbackup\library\中医\名医\!叶天士\叶案疏证 - 李启贤.pdf
 		Favorites [
 		]
 		IsPinned = false
@@ -182,19 +101,39 @@ FileStates [
 		OpenCount = 1
 		UseDefaultState = false
 		DisplayMode = continuous
-		ScrollPos = -1 265.151
-		PageNo = 5
-		Zoom = fit page
+		ScrollPos = -1 104.944
+		PageNo = 127
+		Zoom = 300
 		Rotation = 0
 		WindowState = 2
-		WindowPos = 515 0 890 1153
+		WindowPos = 645 107 890 981
 		ShowToc = false
-		SidebarDx = 302
+		SidebarDx = 188
 		DisplayR2L = false
 		ReparseIdx = 0
 	]
 	[
-		FilePath = D:\Library\中医\!优先\黄帝内经灵枢校注语译 - 郭霭春.pdf
+		FilePath = \\192.168.2.247\hp\netbackup\library\中医\名医\!叶天士\医效秘传.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 2
+		UseDefaultState = false
+		DisplayMode = continuous
+		ScrollPos = -1 303.623
+		PageNo = 1
+		Zoom = 150
+		Rotation = 0
+		WindowState = 2
+		WindowPos = 645 107 890 981
+		ShowToc = true
+		SidebarDx = 188
+		DisplayR2L = false
+		ReparseIdx = 0
+	]
+	[
+		FilePath = \\192.168.2.247\hp\netbackup\library\中医\名医\!叶天士\临证指南医案译注  上.pdf
 		Favorites [
 		]
 		IsPinned = false
@@ -203,38 +142,18 @@ FileStates [
 		UseDefaultState = false
 		DisplayMode = continuous
 		ScrollPos = -1 -1
-		PageNo = 209
+		PageNo = 1
 		Zoom = fit page
 		Rotation = 0
 		WindowState = 2
-		WindowPos = 515 0 890 1153
+		WindowPos = 645 107 890 981
 		ShowToc = true
-		SidebarDx = 302
+		SidebarDx = 188
 		DisplayR2L = false
 		ReparseIdx = 0
 	]
 	[
-		FilePath = D:\drive\中药学笔记.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 2
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 166.255
-		PageNo = 1
-		Zoom = 125
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = false
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-	]
-	[
-		FilePath = D:\Library\中医\!优先\读方思考与用方体会 - 高建忠.pdf
+		FilePath = \\192.168.2.247\hp\netbackup\library\中医\!孟河\张元凯\医刍融新 - 张元凯.pdf
 		Favorites [
 		]
 		IsPinned = false
@@ -247,49 +166,9 @@ FileStates [
 		Zoom = fit page
 		Rotation = 0
 		WindowState = 2
-		WindowPos = 515 0 890 1153
+		WindowPos = 645 107 890 981
 		ShowToc = true
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-	]
-	[
-		FilePath = D:\Library\中医\!优先\西溪书屋夜话录讲用与发挥 - 刘保和.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 3
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 82.6913
-		PageNo = 53
-		Zoom = 150
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = true
-		SidebarDx = 302
-		DisplayR2L = false
-		ReparseIdx = 0
-	]
-	[
-		FilePath = D:\drive\《我的情绪为何总被他人左右》读书笔记.pdf
-		Favorites [
-		]
-		IsPinned = false
-		IsMissing = false
-		OpenCount = 1
-		UseDefaultState = false
-		DisplayMode = continuous
-		ScrollPos = -1 -1
-		PageNo = 1
-		Zoom = 100
-		Rotation = 0
-		WindowState = 2
-		WindowPos = 515 0 890 1153
-		ShowToc = false
-		SidebarDx = 0
+		SidebarDx = 188
 		DisplayR2L = false
 		ReparseIdx = 0
 	]
@@ -297,6 +176,8 @@ FileStates [
 SessionData [
 ]
 TimeOfLastUpdateCheck = 0 0
-OpenCountWeek = 580
+OpenCountWeek = 586
 
 # Settings after this line have not been recognized by the current version
+RememberStatePerDocument = true
+RememberOpenedFiles = true
