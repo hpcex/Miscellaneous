@@ -1,5 +1,5 @@
-"config file for vim on debian"
-
+"vim on debian"
+"2022-04-01 13:43"
 
 " Vim configuration file, in effect when invoked as "vi". The aim of this
 " configuration file is to provide a Vim environment as compatible with the
