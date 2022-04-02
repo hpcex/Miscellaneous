@@ -49,7 +49,7 @@ plugin:
     domain:
       - 'ext:./ali.txt'
       - 'ext:./china.txt'
-      - 'ext:./bigchina.txt'
+     # - 'ext:./bigchina.txt'
 
 - tag: google
   type: fast_forward
