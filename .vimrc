@@ -15,4 +15,4 @@ colorscheme evening
 filetype on
 set tabstop=4
 set wrap linebreak nolist
-set laststatus=2      
+set laststatus=2
