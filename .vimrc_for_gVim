@@ -1,36 +1,74 @@
-"config file for Gvim on windows"
-"2022-04-01 13:42"
+set guioptions -=T            								" 隐藏工具栏
+colorscheme evening         								" 设置 theme
+"autocmd GUIEnter * simalt ~x 								" 启动即全屏
+set guifont=Input:h12:cANSI                                 " 设置英文字体
+set guifontwide="microsoft yahei ui":h12:cGB2312            " 设置中文字体
 
-set encoding=utf-8
-set fileencodings=utf-8,cp950
+syntax on                   								" 语法着色
+set nocompatible                                            " vim 不使用和 vi 相容的模式
+set number                                                  " 显示行号
 
-syntax on                   " 语法上色
-set nocompatible            " VIM 不使用和 VI 相容的模式 This setting must be first. because it changes other options as a side effect
-set ic                      " 设定搜寻忽略大小写
-set nu                      " 设定行号
-set incsearch               " 加强版搜寻功能, 在输入search pattern期间就会开始进行搜寻,
-set nobackup                " 设定不自动储存备份档
-set history=200             " 保留 200 个使用过的指令
-set backspace=2             " 在 insert 也可用 backspace
-set confirm                 " 操作过程有冲突时, 以明确的文字来询问, 而不是直接阻挡使用者进行该项动作
-set showcmd                 " 显示尚未完成的命令, 如: 2f
-set showmode                " 显示目前操作模式为一般, 插入, 取代还是选取模式
-set laststatus=2            " =2, 永远开启status line
+filetype plugin indent on                                   " 打开文件类型检测
+set tabstop=4                                               " tab长度为4个空格
+set shiftwidth=4                                            " 自动缩进长度为4个空格
+set autoindent                                              " 继承前一行的缩进方式
 
-autocmd GUIEnter * simalt ~x " 启动即全屏
-colorscheme evening
+set nobackup                                                " 设定不自动储存备份档
+set history=200                                             " 保留 200 个使用过的指令
+set backspace=2                                             " 在 insert 也可用 backspace
+set confirm                                                 " 操作过程有冲突时, 以明确的文字来询问, 而不是直接阻挡使用者进行该项动作
+set showcmd                                                 " 显示尚未完成的命令, 如: 2f
+set showmode                                                " 显示目前操作模式为一般, 插入, 取代还是选取模式 
+set showmatch                                               " 显示括号匹配
 
-filetype on
-set tabstop=4
-set guioptions -=T
-set wrap linebreak nolist
-set guifont=Input:h20:cANSI
-set guifontwide="microsoft yahei ui":h20:cGB2312
-set hlsearch
-nnoremap <F3> :noh<CR>
+set ic                      								" 设定搜寻忽略大小写
+set incsearch                                               " 在输入关键字时就开始搜索
+set hlsearch                								" 高亮搜索结果
+nnoremap <F3> :noh<CR>      								" 取消高亮
 
-"need plugin guifont++
+" 字体缩放
 let guifontpp_size_increment=1
 let guifontpp_smaller_font_map="<M-Down>"
 let guifontpp_larger_font_map="<M-Up>"
 let guifontpp_original_font_map="<M-End>"
+
+" 字体渲染
+if has('win32') || has('win64')
+    if (v:version == 704 && has("patch393")) || v:version > 704
+        set renderoptions=type:directx,level:0.50,
+                    \gamma:1.0,contrast:0.0,geom:1,renmode:5,taamode:1
+    end
+end
+
+" 设置文件编码格式
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,chinese,latin-1,gbk,gb18030,gk2312
+
+
+" 解决菜单乱码 删除菜单，再重新添加菜单，vim会按照之前设定的编码格式创建菜单栏
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" 解决consle提示信息输出乱码
+language messages zh_CN.utf-8
+
+" 启动时居中
+function WindowCenterInScreen()
+    set lines=9999 columns=9999
+    let g:windowsSizeFixX = 58
+    let g:windowsSizeFixY = 118
+    let g:windowsScaleX = 7.75
+    let g:windowsScaleY = 17.0
+    let g:windowsPosOldX = getwinposx()
+    let g:windowsPosOldY = getwinposy()
+    let g:windowsScreenWidth = float2nr(winwidth(0) * g:windowsScaleX) + g:windowsPosOldX + g:windowsSizeFixX
+    let g:windowsScreenHeight = float2nr(winheight(0) * g:windowsScaleY) + g:windowsPosOldY + g:windowsSizeFixY
+    set lines=40 columns=120
+    let g:windowsSizeWidth = float2nr(winwidth(0) * g:windowsScaleX) + g:windowsSizeFixX
+    let g:windowsSizeHeight = float2nr(winheight(0) * g:windowsScaleY) + g:windowsSizeFixY
+    let g:windowsPosX = ((g:windowsScreenWidth - g:windowsSizeWidth) / 2)
+    let g:windowsPosY = ((g:windowsScreenHeight - g:windowsSizeHeight) / 2)
+    exec ':winpos ' . g:windowsPosX . ' ' . g:windowsPosY
+endfunc
+au GUIEnter * call WindowCenterInScreen()
