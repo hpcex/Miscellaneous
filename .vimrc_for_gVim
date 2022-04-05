@@ -1,8 +1,8 @@
 set guioptions -=T            								" 隐藏工具栏
 colorscheme evening         								" 设置 theme
 "autocmd GUIEnter * simalt ~x 								" 启动即全屏
-set guifont=Input:h12:cANSI                                 " 设置英文字体
-set guifontwide="microsoft yahei ui":h12:cGB2312            " 设置中文字体
+set guifont=Input:h14                           			" 设置英文字体
+set guifontwide=LXGW\ WenKai\ Mono:h16                      " 设置中文字体
 
 syntax on                   								" 语法着色
 set nocompatible                                            " vim 不使用和 vi 相容的模式
@@ -24,7 +24,9 @@ set showmatch                                               " 显示括号匹配
 set ic                      								" 设定搜寻忽略大小写
 set incsearch                                               " 在输入关键字时就开始搜索
 set hlsearch                								" 高亮搜索结果
-nnoremap <F3> :noh<CR>      								" 取消高亮
+
+nnoremap <F3> :noh<CR>      								" 取消搜索高亮
+nnoremap <F4> :PanguAll<CR>									" 中文排版
 
 " 字体缩放
 let guifontpp_size_increment=1
