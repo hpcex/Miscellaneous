@@ -1,0 +1,23 @@
+"listen": ":41128",
+"protocol": "wechat-video",
+"acme": {
+    "domains": [
+    "xxooo.653.xyz"
+    ],
+    "email": "tank@xxoo.653.xyz"
+},
+"cert": "/root/.acme.sh/xxoo.653.xyz/fullchain.cer",
+"key": "/root/.acme.sh/xxoo.653.xyz/xxoo.653.xyz.key", 
+"disable_udp": false,
+"auth": {
+    "mode": "password",
+    "config": {
+    "password": "hklsdhfklshdlghdfklghkldhgkldfhjgkldfhjgkldhgfkldfhgklhdf11!###!@@##"
+    }
+},
+"alpn": "h3",
+"max_conn_client": 4096,
+"disable_mtu_discovery": false,
+"resolve_preference": "46",
+"resolver": "1.1.1.1:53"
+}
