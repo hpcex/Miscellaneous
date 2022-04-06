@@ -1,3 +1,4 @@
+{
 "listen": ":41128",
 "protocol": "wechat-video",
 "acme": {
