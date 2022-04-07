@@ -50,7 +50,7 @@
                         "id": "uuid",
                         "flow": "xtls-rprx-direct",
                         "level": 0,
-                        "email": "xx00@gmail.com"
+                        "email": "xxoo@gmail.com"
                     }
                 ],
                 "decryption": "none",
@@ -87,7 +87,7 @@
                     {
                         "password": "fuckfirewall",
                         "level": 0,
-                        "email": "xx00@gmail.com"
+                        "email": "xxoo@gmail.com"
                     }
                 ],
                 "fallbacks": [
@@ -122,6 +122,7 @@
                 "security": "none",
                 "wsSettings": {
                 	"connectionReuse": true,
+	  			 // "acceptProxyProtocol": true,
                 	"maxEarlyData": 1024,
                 	"earlyDataHeaderName": "Sec-WebSocket-Protocol",
                 	"path": "/api"
