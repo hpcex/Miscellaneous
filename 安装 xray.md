@@ -4,7 +4,7 @@
 	alias acme.sh=~/.acme.sh/acme.sh  
 	echo 'alias acme.sh=~/.acme.sh/acme.sh' >>/etc/profile  
 
-	acme.sh --issue -d 域名 --standalone -m xxoo@gmail.com
+	acme.sh --issue --server letsencrypt -d 域名 --standalone -m xxoo@gmail.com
 
 	mkdir /usr/share/xray && mkdir /etc/xray  
 	export DAT_PATH='/usr/share/xray'  
