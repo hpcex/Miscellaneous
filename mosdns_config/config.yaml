@@ -24,7 +24,7 @@ plugin:
           - domain_cn
         exec:
           - china
-          - _end
+          - _return
       - primary:
         - cloudflare
         secondary:
