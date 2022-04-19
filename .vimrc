@@ -15,3 +15,4 @@ colorscheme evening
 filetype on
 set tabstop=4
 set wrap linebreak nolist
+inoremap <S-Insert><ESC>:setl paste<CR>gi<C-R>+<ESC>:setl nopaste<CR>gi
