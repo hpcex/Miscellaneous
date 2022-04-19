@@ -74,3 +74,5 @@ function WindowCenterInScreen()
     exec ':winpos ' . g:windowsPosX . ' ' . g:windowsPosY
 endfunc
 au GUIEnter * call WindowCenterInScreen()
+
+inoremap <S-Insert><ESC>:setl paste<CR>gi<C-R>+<ESC>:setl nopaste<CR>gi
