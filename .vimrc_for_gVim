@@ -76,4 +76,4 @@ endfunc
 au GUIEnter * call WindowCenterInScreen()
 
 " 增强粘贴
-inoremap <S-Insert><ESC>"+p`]a
+inoremap <S-Insert><ESC>:setl paste<CR>gi<C-R>+<ESC>:setl nopaste<CR>gi
