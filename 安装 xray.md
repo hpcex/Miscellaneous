@@ -17,8 +17,9 @@
 
 	acme.sh --install-cert -d 域名 \  
 	--key-file       /etc/xray/key.pem  \  
-	--fullchain-file /etc/xray/cert.pem \  
-	--reloadcmd     "systemctl restart xray"  
+	--fullchain-file /etc/xray/cert.pem 
+
+	systemctl restart xray
 
 	chown nobody /etc/xray/*
 
