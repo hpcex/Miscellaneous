@@ -1,4 +1,5 @@
 # GFWList++ 模式
+inbound: sockslocalin = socks(address: 0.0.0.0, port: 1080)
 default: direct
 ip(8.8.8.8,8.8.4.4,1.1.1.1,1.0.0.1)->proxy
 domain(geosite:google-scholar)->proxy
