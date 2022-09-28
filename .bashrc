@@ -16,7 +16,6 @@ PS1='\[\e[32;1m\][\u@\h \W]#\[\e[0m\]'
 
 export LS_OPTIONS='--color=auto'
 eval "`dircolors`"
-alias ls='ls $LS_OPTIONS -CF'
-alias ll='ls $LS_OPTIONS -lF'
-alias la='ls $LS_OPTIONS -lAF'
-alias m='/usr/bin/micro'
+alias ls='ls $LS_OPTIONS -CFlah'
+# alias ll='ls $LS_OPTIONS -lF'
+# alias la='ls $LS_OPTIONS -lAF'
