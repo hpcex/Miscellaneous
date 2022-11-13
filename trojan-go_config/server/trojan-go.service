@@ -1,0 +1,15 @@
+[Unit]
+Description=Trojan-Go
+Documentation=https://p4gefau1t.github.io/trojan-go/
+After=network.target nss-lookup.target
+
+[Service]
+User=root
+NoNewPrivileges=true
+ExecStart=/opt/trojan-go/trojan-go -config /opt/trojan-go/config.json
+Restart=on-failure
+RestartSec=10s
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target

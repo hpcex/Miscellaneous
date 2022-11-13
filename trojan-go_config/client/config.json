@@ -1,0 +1,34 @@
+{
+    "run_type": "client",
+    "local_addr": "127.0.0.1",
+    "local_port": 10088,
+    "remote_addr": "server ip",
+    "remote_port": 51443,
+    "password": [
+        "fuckthegfw"
+    ],
+    "ssl": {
+        "sni": "your domain"
+    },
+    "mux": {
+        "enabled": false
+    },
+    "router": {
+        "enabled": true,
+        "bypass": [
+            "geoip:cn",
+            "geoip:private",
+            "geosite:cn",
+            "geosite:private"
+        ],
+        "block": [
+            "geosite:category-ads"
+        ],
+        "proxy": [
+            "geosite:geolocation-!cn"
+        ],
+        "default_policy": "proxy",
+        "geoip": "./geoip.dat",
+        "geosite": "./geosite.dat"
+    }
+}
