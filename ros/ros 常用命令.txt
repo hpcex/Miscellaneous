@@ -1,0 +1,141 @@
+清空 dns cache
+/ip dns cache flush
+
+禁止 外网 ping
+/ip firewall filter add chain=input src-address=!192.168.1.0/24 protocol=icmp action=drop comment="no Ping"
+
+添加防火墙的列表
+/ip firewall address-list
+add address=10.0.0.0/8 comment=LAN address list=direct
+add address=192.168.0.0/16 comment=LAN address list=direct
+
+流量打标
+/ip firewall mangle
+add action=accept chain=prerouting src-address=192.168.1.100
+add action=accept chain=prerouting dst-address-list=direct in-interface=LAN
+add action=mark-routing chain=prerouting dst-address-list=!china \
+    new-routing-mark=ssr passthrough=no protocol=tcp src-address=\
+    192.168.1.0/24
+
+端口映射 
+/ip firewall nat
+add action=dst-nat chain=dstnat comment=debian dst-port=2222 \
+    in-interface=WAN protocol=tcp to-addresses=192.168.1.99 to-ports=22
+    
+禁止 dns 外部解析
+/ip firewall raw
+add action=drop chain=prerouting comment=\
+    "no outside dns query" dst-port=53 in-interface=!LAN \
+    protocol=tcp
+add action=drop chain=prerouting comment=\
+    "no outside dns query" dst-port=53 in-interface=!LAN \
+    protocol=udp
+
+国外流量转旁路
+/ip route
+add check-gateway=ping comment="outside to debian" \
+    distance=1 gateway=192.168.1.100 routing-mark=ssr
+
+关不用的服务
+/ip service
+set telnet disabled=yes
+set ftp disabled=yes
+set www disabled=yes
+set ssh disabled=yes
+set api disabled=yes
+set api-ssl disabled=yes
+
+设置 upnp
+/ip upnp
+set allow-disable-external-interface=yes enabled=yes
+/ip upnp interfaces
+add interface=WAN type=external
+add interface=LAN type=internal
+
+设置时区
+/system clock
+set time-zone-name=Asia/Chongqing
+
+设置 ntp
+/system ntp client set primary-ntp=203.107.6.88
+/system ntp client set secondary-ntp=17.253.16.253
+/system ntp client set enabled=yes
+
+LAN口 配地址
+/ip address
+add address=192.168.1.240/24 interface=LAN network=192.168.1.0
+
+配置 pool
+/ip pool
+add name=dhcp_pool ranges=192.168.1.100-192.168.1.200
+
+配置 dhcp server
+/ip dhcp-server
+add address-pool=dhcp_pool interface=LAN lease-time=1d name=dhcp_server
+
+设置 gateway 和 dns
+/ip dhcp-server network
+add address=192.168.1.0/24 dns-server=192.168.1.240 gateway=192.168.1.240
+
+静态地址绑定
+/ip dhcp-server lease
+add address=192.168.1.102 client-id=1:70:85:c2:39:91:c4 mac-address=\
+    70:85:C2:39:91:C4 server=dhcp_server
+add address=192.168.1.110 client-id=1:a4:c7:4b:13:61:3b comment=\
+    "HuaWei TC7102" mac-address=A4:C7:4B:13:61:3B server=dhcp_server
+
+国外流量转旁路
+/ip route
+add check-gateway=ping comment="outside to debian" \
+    disabled=no distance=1 dst-address=0.0.0.0/0 gateway=192.168.1.115 \
+    pref-src=0.0.0.0 routing-table=ssr scope=30 suppress-hw-offload=no \
+    target-scope=10
+
+恢复出厂设置
+/sy reset
+
+添加新的路由标记
+/routing table
+add fib name=ssr
+
+导出静态dns
+/ip dns/static/ export file=static
+
+导入文件
+import file=cnip.rsc
+
+把配置转成脚本的命令
+export file=mybackup
+
+禁止外部地址进行dns查询
+/ip firewall raw
+add action=drop chain=prerouting dst-port=53 protocol=tcp src-address-list=!local
+add action=drop chain=prerouting dst-port=53 protocol=udp src-address-list=!local
+
+端口映射
+/ip firewall nat
+add action=dst-nat chain=dstnat comment=N40L_web dst-port=2020 in-interface=WAN \
+    protocol=tcp to-addresses=192.168.2.247 to-ports=80
+add action=dst-nat chain=dstnat comment=N40L_rsync dst-port=873 in-interface=WAN \
+    protocol=tcp to-addresses=192.168.2.247 to-ports=873
+add action=dst-nat chain=dstnat comment=N40L_radmin dst-port=5111 in-interface=WAN \
+    protocol=tcp to-addresses=192.168.2.247 to-ports=4899
+add action=dst-nat chain=dstnat comment=M93P_radmin dst-port=5222 in-interface=WAN \
+    protocol=tcp to-addresses=192.168.2.109 to-ports=4899
+
+/ip firewall nat
+add action=masquerade chain=srcnat comment="NAS Port Redirect" out-interface=\
+    pppoe-out1
+add action=dst-nat chain=dstnat comment=NAS dst-port=873,5000,6690,8085 \
+    in-interface=pppoe-out1 protocol=tcp to-addresses=192.168.1.249
+
+自动备份
+/system scheduler
+add disabled=no interval=1d name=autobak on-event=\
+"/file remove autobak.backup\r\
+\n/system backup save name=autobak" policy=\
+ftp,reboot,read,write,policy,test,winbox,password,sniff,sensitive,api \
+start-date=jan/04/2013 start-time=04:30:00
+
+封mac
+/ip firewall filter add chain=forward src-mac-address=00:00:00:00:00:00 action=drop
