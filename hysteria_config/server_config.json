@@ -3,12 +3,12 @@
 "protocol": "wechat-video",
 "acme": {
     "domains": [
-    "xxoo.653.xyz"
+    "xxoo.777888.xyz"
     ],
-    "email": "tank@xxoo.653.xyz"
+    "email": "tank@xxoo.777888.xyz"
 },
-"cert": "/root/.acme.sh/xxoo.653.xyz/fullchain.cer",
-"key": "/root/.acme.sh/xxoo.653.xyz/xxoo.653.xyz.key", 
+"cert": "/root/.acme.sh/xxoo.777888.xyz/fullchain.cer",
+"key": "/root/.acme.sh/xxoo.777888.xyz/xxoo.777888.xyz.key", 
 "disable_udp": false,
 "auth": {
     "mode": "password",
