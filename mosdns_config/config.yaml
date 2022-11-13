@@ -1,0 +1,229 @@
+log:
+  level: info
+  file: /opt/mosdns/work.log
+
+# 数据源
+data_providers:
+  - tag: geoip
+    file: /opt/mosdns/geoip.dat
+    auto_reload: true
+  - tag: geosite
+    file: /opt/mosdns/geosite.dat
+    auto_reload: true
+
+plugins:
+  ################# 可执行插件 ################
+  # 缓存
+  - tag: "mem_cache"
+    type: "cache"
+    args:
+      size: 8192 # 条目数量
+      lazy_cache_ttl: 86400 # lazy cache 生存时间 一天
+      lazy_cache_reply_ttl: 30 # 返回过期应答的 TTL
+      cache_everything: true # 有大量 edns 时启用
+
+  # 修改应答 ttl
+  - tag: "modify_ttl"
+    type: "ttl"
+    args:
+      minimal_ttl: 300
+      maximum_ttl: 3600
+
+  ################ DNS #################
+        
+  - tag: isp
+    type: forward
+    args:
+      upstream:
+        - addr: "221.228.255.1" # isp dns
+
+  - tag: baidu
+    type: forward
+    args:
+      upstream:
+        - addr: "180.76.76.76" 
+        
+  - tag: ali
+    type: forward
+    args:
+      upstream:
+        - addr: "223.5.5.5" 
+          # ip_addr: # 手动指定服务器的 IP 地址 可以配置多个
+          #   - "223.5.5.5"
+          #   - "223.6.6.6"
+          # trusted: true # 是否是可信服务器
+
+  - tag: dnspod
+    type: forward
+    args:
+      upstream:
+        - addr: "119.29.29.29"
+          # ip_addr: # 手动指定服务器的 IP 地址 可以配置多个
+          #   - "1.12.12.12"
+          #   - "120.53.53.53"
+          # trusted: true # 是否是可信服务器
+          
+  - tag: nextdns
+    type: fast_forward
+    args:
+      upstream:
+        - addr: https://dns.nextdns.io/?????
+          dial_addr: 45.11.104.186:443
+          socks5: "127.0.0.1:7891"
+          
+  - tag: google
+    type: fast_forward
+    args:
+      upstream:
+        - addr: "tls://dns.google"
+          dial_addr: "8.8.8.8"
+          socks5: "127.0.0.1:7891"
+          trusted: true
+          enable_pipeline: true
+
+  - tag: cloudflare
+    type: fast_forward
+    args:
+      upstream:
+        - addr: "tls://1dot0dot0dot1.cloudflare-dns.com"
+          dial_addr: "1.0.0.1"
+          socks5: "127.0.0.1:7891"
+          trusted: true
+          enable_pipeline: true
+        - addr: "tls://1dot1dot1dot1.cloudflare-dns.com"
+          dial_addr: "1.1.1.1"
+          socks5: "127.0.0.1:7891"
+          trusted: true
+          enable_pipeline: true
+
+  ################ 匹配器 #################
+
+  # 查询 - xxx 域名
+  - tag: query_xxx
+    type: query_matcher
+    args:
+      domain:
+        - "domain:xxx.com"
+        - "domain:xxx.net"
+        
+  # 查询 - cn 域名
+  - tag: query_cn
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:cn"
+
+  # 查询 - gfw
+  - tag: query_gfw
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:gfw"
+
+  # 查询 - 非 cn 域名
+  - tag: query_notcn
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:geolocation-!cn"
+
+  # 查询 - ad
+  - tag: query_ad
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:category-ads-all"
+
+  # 返回 - cn IP
+  - tag: response_cnip
+    type: response_matcher
+    args:
+      ip:
+        - "provider:geoip:cn"
+
+  ################ 序列 #################
+
+  # local 序列
+  - tag: local
+    type: sequence
+    args:
+      exec:
+        # - primary:
+        - parallel: # 并行
+            - - isp
+            - - ali
+            - - dnspod
+            - - baidu
+        # secondary:
+        #   - localdns # 备用本地
+        # fast_fallback: 600 # 这里建议设置成 primary 服务器正常延时的 2~5 倍 单位: 毫秒。
+        # always_standby: true
+
+  # remote 序列
+  - tag: remote
+    type: sequence
+    args:
+      exec:
+        # - primary:
+        - parallel: # 并行
+            - - nextdns 
+            - - cloudflare
+            - - google
+        # secondary:
+        #   - adguard # 备用 adguard
+        # fast_fallback: 600 # 这里建议设置成 primary 服务器正常延时的 2~5 倍 单位: 毫秒。
+        # always_standby: true
+
+  # main_sequence
+  - tag: main_sequence
+    type: sequence
+    args:
+      exec:
+                 
+        # - if: query_ad # ad
+        #   exec:
+        #     - _new_nxdomain_response # 空应答
+        #     - _return
+            
+        - if: "query_cn" # cn 域名
+          exec:
+            - _prefer_ipv4 # 优先 IPv4
+            - _pad_query
+            - local # 国内服务器查询
+            - if: "response_cnip" # 结果是 cn ip
+              exec:
+                - _return # 结束
+
+        - if: query_notcn # 非 cn 域名
+          exec:
+            - _prefer_ipv4 # 优先 IPv4
+            - _pad_query
+            - remote # 国外服务器查询
+            - if: "!response_cnip" # 结果是 非cn ip
+              exec:
+                - _return # 结束
+
+        - primary: # 其他情况
+            - _prefer_ipv4
+            - _pad_query
+            - remote
+          secondary:
+            - _prefer_ipv4
+            - _pad_query
+            - local
+          fast_fallback: 200 # 这里建议设置成 local 服务器正常延时的 2~5 倍 单位: 毫秒
+          always_standby: true
+
+  - tag: sequence
+    type: sequence
+    args:
+      exec:
+        - mem_cache # 缓存
+        - main_sequence # 运行主执行序列
+        - modify_ttl # 修改 ttl
+
+servers:
+  - exec: sequence
+    listeners:
+      - protocol: udp
+        addr: ":53"
