@@ -1,6 +1,0 @@
-升级 Xray 核心
-
-Xray-linux-arm64-v8a  // N1 用这个
-Xray-linux-64.zip // x86-64 用这个
-
-解压后直接覆盖 /usr/bin/xray
