@@ -1,7 +1,0 @@
-apt -y install net-tools unzip socat curl wget screen mtr
-     
-curl https://get.acme.sh | sh  
-alias acme.sh=~/.acme.sh/acme.sh  
-echo 'alias acme.sh=~/.acme.sh/acme.sh' >> /etc/profile  
-
-acme.sh --issue -d *.777888.xyz --standalone -m xxoo@gmail.com
