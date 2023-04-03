@@ -5,6 +5,7 @@ set -g base-index 1
 set -g status-interval 1
 set -g default-terminal "screen-256color"
 set -g history-limit 10000
+set -g mouse on
 
 unbind C-b
 set -g prefix C-a
