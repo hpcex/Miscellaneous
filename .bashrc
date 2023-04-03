@@ -16,5 +16,6 @@ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
 export LS_OPTIONS='--color=auto'
 eval "`dircolors`"
 alias ll='ls $LS_OPTIONS -CFlah'
+alias bu='/usr/bin/byobu'
 # alias ll='ls $LS_OPTIONS -lF'
 # alias la='ls $LS_OPTIONS -lAF'
