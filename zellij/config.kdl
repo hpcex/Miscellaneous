@@ -1,3 +1,10 @@
+ui {
+    pane_frames {
+        hide_session_name true
+        rounded_corners true
+    }
+}
+
 // 无箭头字体
 simplified_ui true
 
@@ -8,7 +15,7 @@ pane_frames false
 scroll_buffer_size 10000
 
 // 紧凑布局
-default_layout "compact"
+// default_layout "compact"
 
 // 默认模式
 default_mode "normal"
