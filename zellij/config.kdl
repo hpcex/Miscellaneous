@@ -1,0 +1,48 @@
+// 无箭头字体
+simplified_ui true
+
+// 显示边框
+pane_frames false
+
+// 缓冲区行数
+scroll_buffer_size 10000
+
+// 紧凑布局
+default_layout "compact"
+
+// 默认模式
+default_mode "normal"
+
+// 自定义快捷键
+keybinds {
+    tab {
+        bind "Ctrl s" "Ctrl d" "Esc" { SwitchToMode "locked"; }
+        bind "c" { NewTab; SwitchToMode "tab"; }
+        bind "Tab" { GoToNextTab; }
+        bind "1" { GoToTab 1; }
+        bind "2" { GoToTab 2; }
+        bind "3" { GoToTab 3; }
+        bind "4" { GoToTab 4; }
+        bind "5" { GoToTab 5; }
+    }
+    locked {
+        bind "Ctrl s" { SwitchToMode "normal"; }
+        bind "Ctrl t" { SwitchToMode "tab"; }
+        bind "Ctrl d" { SwitchToMode "locked"; }  // 防止意外退出
+        // 分屏
+        bind "\\" { NewPane "Right"; SwitchToMode "locked"; }
+        bind "-" { NewPane "Down"; SwitchToMode "locked"; }
+        // 放大
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "locked"; }
+        // 关闭当前焦点区域
+        bind "x" { CloseFocus; SwitchToMode "locked"; }
+        // 页面内移动焦点
+        bind "a" { MoveFocus "Left"; SwitchToMode "locked"; }
+        bind "d" { MoveFocus "Right"; SwitchToMode "locked"; }
+        bind "w" { MoveFocus "Up"; SwitchToMode "locked"; }
+        bind "s" { MoveFocus "Down"; SwitchToMode "locked"; }
+    }
+    normal {
+        bind "Ctrl s" "Ctrl d" "Esc" { SwitchToMode "locked"; }
+    }
+}
