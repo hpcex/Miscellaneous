@@ -11,7 +11,7 @@ set showcmd
 set showmode
 set encoding=utf-8
 set fileencodings=utf-8,cp950
-colorscheme murphy
+colorscheme desert
 filetype on
 set tabstop=4
 set wrap linebreak nolist
