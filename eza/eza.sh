@@ -5,4 +5,4 @@ echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable
 apt update
 apt install -y eza
 echo -e 'alias ls="eza --icons"\nalias ll="eza --time-style=long-iso --icons --binary -lhg"\nalias tree="eza --tree --icons"' >> ~/.bashrc
-source .bashrc
+source ~/.bashrc
