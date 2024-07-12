@@ -20,6 +20,4 @@ export LS_OPTIONS='--color=auto'
 eval "`dircolors`"
 # alias ll='ls $LS_OPTIONS -CFlah'
 alias nt='/usr/local/bin/nexttrace'
-alias z='zellij'
-alias ls="eza --time-style=long-iso --icons --group --binary -lg"
-alias tree="eza --tree --icons"
+# alias z='zellij'
