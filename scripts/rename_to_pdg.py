@@ -1,3 +1,5 @@
+# 把当前目录下的文件的后缀都改为pdg
+
 import os
 import sys
 
