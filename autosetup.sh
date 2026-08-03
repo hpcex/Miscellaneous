@@ -10,9 +10,13 @@ fi
 echo "=========================================="
 echo "🎯 阶段 1: 检查和安装核心依赖"
 echo "=========================================="
+
+# 【关键修补】在 apt update 之前，先强制删除所有 Packagecloud 坏源
+rm -f /etc/apt/sources.list.d/ookla* /etc/apt/sources.list.d/*speedtest* 2>/dev/null
+sed -i '/packagecloud/d' /etc/apt/sources.list 2>/dev/null
+
+# 扫清坏源后再执行 apt update
 apt update
-# 清理可能残留的坏源文件 (防止 packagecloud 402 错误卡死 apt)
-rm -f /etc/apt/sources.list.d/ookla_speedtest-cli.list
 
 # 安装通用工具，包含 btop、vim、jq 等
 apt install -y net-tools dnsutils mtr git unzip zip wget curl vnstat lsof iptables lrzsz xz-utils openssl gawk file bzip2 ntpsec-ntpdate jq vim btop 
