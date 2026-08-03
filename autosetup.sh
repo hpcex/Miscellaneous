@@ -11,8 +11,11 @@ echo "=========================================="
 echo "🎯 阶段 1: 检查和安装核心依赖"
 echo "=========================================="
 apt update
-# 安装通用工具，包括 wget, curl, jq, git, vim 等
-apt install -y net-tools dnsutils mtr git unzip zip wget curl vnstat lsof iptables lrzsz xz-utils openssl gawk file bzip2 ntpsec-ntpdate jq vim 
+# 清理可能残留的坏源文件 (防止 packagecloud 402 错误卡死 apt)
+rm -f /etc/apt/sources.list.d/ookla_speedtest-cli.list
+
+# 安装通用工具，包含 btop、vim、jq 等
+apt install -y net-tools dnsutils mtr git unzip zip wget curl vnstat lsof iptables lrzsz xz-utils openssl gawk file bzip2 ntpsec-ntpdate jq vim btop 
 
 # 确保 wget 或 curl 可用
 DOWNLOADER=""
@@ -29,9 +32,6 @@ echo "=========================================="
 echo "⚙️ 阶段 2: 基础系统配置和优化"
 echo "=========================================="
 
-# 清理可能导致 apt update 报 402 Payment Required 错误的失效 Speedtest 仓库
-rm -f /etc/apt/sources.list.d/ookla_speedtest-cli.list
-
 # 系统更新
 apt upgrade -y 
 
@@ -44,8 +44,14 @@ rm -rf /etc/localtime
 ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime 
 # 同步时间
 ntpdate ntp.aliyun.com 
-# rsyslog 和 cron 配置
-sed -i 's/#\(cron.*\)/\1/' /etc/rsyslog.conf && service rsyslog restart && service cron restart 
+
+# rsyslog 和 cron 配置 (做存在性判断，适配 Debian 12 无 rsyslog 环境)
+if [ -f /etc/rsyslog.conf ]; then
+    sed -i 's/#\(cron.*\)/\1/' /etc/rsyslog.conf
+    service rsyslog restart 2>/dev/null
+fi
+systemctl restart cron 2>/dev/null || service cron restart 2>/dev/null
+
 # 增加历史记录大小
 sed -i 's/HISTSIZE=1000/HISTSIZE=10000/g' /etc/profile && source /etc/profile 
 # 下载 ipt.sh 和 .bashrc
@@ -54,19 +60,22 @@ wget -O /root/.bashrc https://raw.githubusercontent.com/hpcex/misc/main/.bashrc
 # 安装 nexttrace
 bash <(curl -Ls https://raw.githubusercontent.com/sjlleo/nexttrace/main/nt_install.sh) 
 
-# 安装 speedtest (使用官方二进制直接下载或 Debian 源，避开 Packagecloud 402 错误)
+# 安装 speedtest (直接从 Ookla 官方 CDN 下载静态二进制包，彻底避开 Packagecloud 402 报错)
 echo "⬇️ 正在安装 Speedtest..."
-if apt install -y speedtest-cli 2>/dev/null; then
-    echo "🎉 speedtest-cli 安装完成！"
+ST_ARCH=$(uname -m)
+if [ "$ST_ARCH" = "x86_64" ]; then
+    curl -sSL https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz | tar -xz -C /usr/local/bin speedtest 2>/dev/null
+elif [ "$ST_ARCH" = "aarch64" ]; then
+    curl -sSL https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz | tar -xz -C /usr/local/bin speedtest 2>/dev/null
+fi
+
+if [ -f /usr/local/bin/speedtest ]; then
+    chmod +x /usr/local/bin/speedtest
+    echo "🎉 Speedtest 官方二进制版本安装成功！"
+elif apt install -y speedtest-cli 2>/dev/null; then
+    echo "🎉 speedtest-cli (apt) 安装成功！"
 else
-    ST_ARCH=$(uname -m)
-    if [ "$ST_ARCH" = "x86_64" ]; then
-        curl -sSL https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz | tar -xz -C /usr/local/bin speedtest 2>/dev/null
-    elif [ "$ST_ARCH" = "aarch64" ]; then
-        curl -sSL https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz | tar -xz -C /usr/local/bin speedtest 2>/dev/null
-    fi
-    chmod +x /usr/local/bin/speedtest 2>/dev/null
-    echo "🎉 Speedtest 官方二进制版本安装完成！"
+    echo "❌ Speedtest 安装失败。"
 fi
 
 # 替换 vim 配置
@@ -81,7 +90,7 @@ echo "=========================================="
 
 apt install -y gpg
 mkdir -p /etc/apt/keyrings
-# 加 --yes 参数避免已存在密钥时弹出交互性提示
+# 加 --yes 参数避免已存在密钥文件时弹出交互提示
 wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | gpg --yes --dearmor -o /etc/apt/keyrings/gierens.gpg
 echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | tee /etc/apt/sources.list.d/gierens.list
 apt update
@@ -91,9 +100,8 @@ echo "=========================================="
 echo "📊 阶段 4: 安装 btop"
 echo "=========================================="
 
-# 优先尝试使用 apt 安装（Debian 12 已内置 btop）
-if apt install -y btop 2>/dev/null; then
-    echo "🎉 btop 通过 apt 安装成功！"
+if command -v btop &> /dev/null; then
+    echo "🎉 btop 已通过系统 apt 成功安装！"
 else
     ARCH=$(uname -m)
     DOWNLOAD_URL=""
