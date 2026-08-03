@@ -89,27 +89,22 @@ elif [ "$ARCH" = "x86_64" ]; then
     DOWNLOAD_URL="https://github.com/aristocratos/btop/releases/latest/download/btop-x86_64-linux-musl.tbz"
 else
     echo "❌ 警告：btop 不支持的系统架构 ($ARCH)，跳过安装。"
-    BTOP_INSTALLED=false
 fi
 
 if [ -n "$DOWNLOAD_URL" ]; then
-    BTOP_INSTALLED=true
     mkdir -p "$TEMP_DIR"
     echo "⬇️ 正在下载 btop..."
-    if ! wget -qO "$TEMP_DIR/$FILENAME" "$DOWNLOAD_URL"; then
-        echo "❌ btop 下载失败，跳过安装。"
-        BTOP_INSTALLED=false
-    fi
-
-    if [ "$BTOP_INSTALLED" = true ]; then
+    if wget -qO "$TEMP_DIR/$FILENAME" "$DOWNLOAD_URL"; then
         echo "📦 正在安装 btop..."
-        tar xjf "$TEMP_DIR/$FILENAME" -C "$TEMP_DIR"
+        tar xjf "$TEMP_DIR/$FILENAME" -C "$TEMP_DIR" 2>/dev/null
         mkdir -p "$INSTALL_PATH"
-        if mv "$TEMP_DIR/btop/bin/btop" "$INSTALL_PATH" && chmod +x "$INSTALL_PATH/btop"; then
+        if [ -f "$TEMP_DIR/btop/bin/btop" ] && mv "$TEMP_DIR/btop/bin/btop" "$INSTALL_PATH" && chmod +x "$INSTALL_PATH/btop"; then
             echo "🎉 btop 安装成功！路径：$INSTALL_PATH/btop"
         else
             echo "❌ btop 安装失败。"
         fi
+    else
+        echo "❌ btop 下载失败，跳过安装。"
     fi
     rm -rf "$TEMP_DIR"
     echo "✅ btop 临时文件清理完成。"
@@ -132,7 +127,7 @@ if [ -z "$VERSION" ] || [ "$VERSION" = "null" ]; then
 else
     echo "✨ 已自动获取到 doggo 最新版本: v${VERSION}"
     
-    # 5.2 自动获取架构并映射
+    # 5.2 自动获取架构并映射 (从 v1.2.0 开始 doggo 使用 doggo-linux-x86_64.tar.gz 格式)
     OS_ARCH=$(uname -m)
     ARCH="" 
     case "${OS_ARCH}" in
@@ -144,14 +139,11 @@ else
             ;;
         *)
             echo "❌ doggo 不支持或无法识别的系统架构 '${OS_ARCH}'，跳过安装。"
-            DOGGO_INSTALLED=false
             ;;
     esac
 
     if [ -n "$ARCH" ]; then
-        DOGGO_INSTALLED=true
-        PLATFORM="Linux"
-        FILENAME="doggo_${VERSION}_${PLATFORM}_${ARCH}.tar.gz"
+        FILENAME="doggo-linux-${ARCH}.tar.gz"
         URL="https://github.com/mr-karan/doggo/releases/download/v${VERSION}/${FILENAME}"
         TEMP_DIR="/tmp/doggo_install_v${VERSION}_$$"
 
@@ -162,16 +154,21 @@ else
         mkdir -p "${TEMP_DIR}"
         cd "${TEMP_DIR}" || exit 1
 
-        if ! ${DOWNLOADER} "${URL}"; then
-            echo "❌ doggo 下载失败，URL可能无效：${URL}。跳过安装。"
-            DOGGO_INSTALLED=false
-        fi
-
-        if [ "$DOGGO_INSTALLED" = true ]; then
-            tar -xzf "${FILENAME}"
-            find . -name "doggo" -type f -exec mv {} /usr/local/bin/doggo \;
-            chmod +x /usr/local/bin/doggo
-            echo "🎉 doggo v${VERSION} 已安装到 /usr/local/bin/doggo"
+        if wget -qO "${FILENAME}" "${URL}" || curl -sSL -o "${FILENAME}" "${URL}"; then
+            if tar -xzf "${FILENAME}" 2>/dev/null; then
+                DOGGO_BIN=$(find . -name "doggo" -type f | head -n 1)
+                if [ -n "$DOGGO_BIN" ]; then
+                    mv "$DOGGO_BIN" /usr/local/bin/doggo
+                    chmod +x /usr/local/bin/doggo
+                    echo "🎉 doggo v${VERSION} 已成功安装到 /usr/local/bin/doggo"
+                else
+                    echo "❌ doggo 解压后未找到二进制文件。"
+                fi
+            else
+                echo "❌ doggo 压缩包解压失败。"
+            fi
+        else
+            echo "❌ doggo 下载失败，URL可能无效：${URL}"
         fi
 
         cd /
