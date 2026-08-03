@@ -31,15 +31,10 @@ echo "=========================================="
 
 # 系统更新
 apt upgrade -y 
-# 禁用休眠/挂起功能
+
+# 禁用休眠/挂起功能 (使用 printf 避免 heredoc 结束符空格报错)
 mkdir -p /etc/systemd/sleep.conf.d
-cat > /etc/systemd/sleep.conf.d/nosuspend.conf << EOF
-[Sleep]
-AllowSuspend=no
-AllowHibernation=no
-AllowSuspendThenHibernate=no
-AllowHybridSleep=no
-EOF 
+printf '[Sleep]\nAllowSuspend=no\nAllowHibernation=no\nAllowSuspendThenHibernate=no\nAllowHybridSleep=no\n' > /etc/systemd/sleep.conf.d/nosuspend.conf
 
 # 设置时区
 rm -rf /etc/localtime
@@ -59,7 +54,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sjlleo/nexttrace/main/nt_insta
 curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash
 apt install -y speedtest
 # 替换 vim 配置
-rm /etc/vim/vimrc.tiny
+rm -f /etc/vim/vimrc.tiny
 apt remove vim-tiny -y
 wget -O /root/.vimrc https://raw.githubusercontent.com/hpcex/misc/main/.vimrc 
 
