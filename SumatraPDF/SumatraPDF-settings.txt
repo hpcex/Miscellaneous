@@ -1,0 +1,243 @@
+# For documentation, see https://www.sumatrapdfreader.org/settings/settings3-7.html
+
+DefaultDisplayMode = automatic
+DefaultZoom = fit page
+DisableJavaScript = false
+AllowExternalImages = false
+EnableTeXEnhancements = false
+EscToExit = true
+FullPathInTitle = true
+LazyLoading = false
+MainWindowBackground = #f5f5f5
+NoHomeTab = false
+HomePageSortByFrequentlyRead = false
+HomePageViewMode = thumbnails
+ReloadModifiedDocuments = true
+RememberOpenedFiles = false
+RememberStatePerDocument = true
+RestoreSession = false
+ReuseInstance = true
+ShowMenubar = true
+ShowMenubarWithTabs = false
+ShowTips = true
+ShowToolbar = true
+Toolbar = show
+ToolbarPosition = top
+SearchUIFloating = true
+ShowFavorites = false
+SortFavoritesByName = false
+ShowToc = true
+ShowLinks = false
+ShowDocumentFocusIndicator = false
+ShowAnnotationNotification = true
+ShowTocPageNumbers = false
+ShowStartPage = false
+SidebarDx = 220
+Scrollbars = windows
+ScrollbarInSinglePage = false
+SmoothScroll = false
+PaddingAfterLastPage = false
+CitationHoverDelay = -1
+ReadAloudSpeed = 1
+FastScrollOverScrollbar = false
+PreventSleepInFullscreen = true
+TabWidth = 300
+Theme = Light
+LastLightTheme = Light
+LastDarkTheme = Catppuccin Mocha
+DocumentColorsFollowTheme = off
+TocDy = 0
+ToolbarSize = 18
+TreeFontName = automatic
+TreeFontSize = 0
+UIFontSize = 0
+DisableAntiAlias = false
+EngineeringDrawingEnhance = auto
+DisableAutoLinks = true
+UseSysColors = false
+UseTabs = false
+SelectionToolbar = true
+TabsMru = false
+ZoomLevels = 
+ZoomIncrement = 0
+
+FixedPageUI [
+	TextColor = #000000
+	BackgroundColor = #ffffff
+	SelectionColor = #CDE8FF
+	WindowMargin = 2 4 2 4
+	PageSpacing = 4 4
+]
+
+EBookUI [
+	FontSize = 0
+	LayoutDx = 0
+	LayoutDy = 0
+	IgnoreDocumentCSS = false
+]
+
+ComicBookUI [
+	WindowMargin = 0 0 0 0
+	PageSpacing = 4 4
+	CbxMangaMode = false
+]
+
+ImageUI [
+	DefaultZoom = shrink to fit
+]
+
+ChmUI [
+	UseFixedPageUI = false
+]
+
+MarkdownUI [
+	UseFixedPageUI = false
+]
+
+ClaudeCode [
+	Model = sonnet
+	Effort = 1
+	SkipPermissions = false
+	BgColor = #ffffff
+]
+
+GrokBuild [
+	Model = grok-4.5
+	Effort = 1
+	AlwaysApprove = false
+	BgColor = #ffffff
+]
+
+CodexBuild [
+	Model = gpt-5.5
+	Sandbox = 1
+	SkipSandbox = false
+	BgColor = #ffffff
+]
+
+AIChatSidebarDx = 0
+
+
+Annotations [
+	HighlightColor = #ffff00
+	UnderlineColor = #00ff00
+	SquigglyColor = #ff00ff
+	StrikeOutColor = #ff0000
+	FreeTextOpacity = 100
+	FreeTextSize = 12
+	FreeTextBorderWidth = 1
+]
+
+ExternalViewers [
+]
+
+ForwardSearch [
+	HighlightOffset = 0
+	HighlightWidth = 15
+	HighlightColor = #6581ff
+	HighlightPermanent = false
+]
+
+PrinterDefaults [
+	PrintScale = shrink
+	Collate = default
+]
+
+Fullscreen [
+	ShowToolbar = false
+	Toolbar = hide
+	ShowMenubar = false
+]
+
+SelectionHandlers [
+]
+
+Shortcuts [
+]
+
+Themes [
+]
+
+TabGroups [
+]
+
+CustomScreenDPI = 0
+
+# You're not expected to change those manually
+UiLanguage = cn
+WindowState = 2
+WindowPos = 515 0 890 1153
+SearchUIWindowPos = 1275 84 607 420
+FileStates [
+[
+		FilePath = D:\incom\下载\聊斋志异全译（全三册）_1438082078955540480.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+	[
+		FilePath = D:\incom\下书\可知\聊斋志异全译（全三册）_1438082078955540480.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+	[
+		FilePath = D:\incom\下载\8a8a84ca9c26f614019cd943b6c16649\490537_2.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+	[
+		FilePath = D:\incom\下载\8a8a84ca8cf2eb56018feb135e6036c2\385505_1.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+	[
+		FilePath = D:\incom\下载\8a8a84ca8cf2eb56018feb135e6036c2\385505_2.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+	[
+		FilePath = D:\incom\下载\8a8a84ca8cf2eb56018feb135e6036c2\385505_4.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+	[
+		FilePath = D:\incom\test2\11_fixed.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
+]
+SessionData [
+]
+TimeOfLastUpdateCheck = 0 0
+OpenCountWeek = 814
+PropWinPos = 546 114
+CheckForUpdates = false
+
+# Settings below are not recognized by the current version
