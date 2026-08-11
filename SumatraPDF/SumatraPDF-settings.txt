@@ -64,7 +64,7 @@ ZoomIncrement = 0
 FixedPageUI [
 	TextColor = #000000
 	BackgroundColor = #ffffff
-	SelectionColor = #CDE8FF
+	SelectionColor = #FFFF00
 	WindowMargin = 2 4 2 4
 	PageSpacing = 4 4
 ]
@@ -232,12 +232,21 @@ FileStates [
 		OpenCount = 0
 		UseDefaultState = true
 	]
+	[
+		FilePath = D:\incom\下载\out\14979277_郑钦安医书阐释_CEP.pdf
+		Favorites [
+		]
+		IsPinned = false
+		IsMissing = false
+		OpenCount = 0
+		UseDefaultState = true
+	]
 ]
 SessionData [
 ]
 TimeOfLastUpdateCheck = 0 0
 OpenCountWeek = 814
-PropWinPos = 546 114
+PropWinPos = 466 449
 CheckForUpdates = false
 
 # Settings below are not recognized by the current version
